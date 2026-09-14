@@ -6,6 +6,11 @@ use Illuminate\Http\Middleware\TrustHosts as Middleware;
 
 class TrustHosts extends Middleware
 {
+    protected function shouldSpecifyTrustedHosts(): bool
+    {
+        return $this->app->environment('local');
+    }
+
     /**
      * Get the host patterns that should be trusted.
      *
@@ -13,8 +18,6 @@ class TrustHosts extends Middleware
      */
     public function hosts(): array
     {
-        return [
-            $this->allSubdomainsOfApplicationUrl(),
-        ];
+        return ['.*'];
     }
 }
